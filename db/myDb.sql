@@ -1,50 +1,50 @@
 #Creates a new table and define a primary key
-CREATE TABLE IF NOT EXISTS public.customer (
+CREATE TABLE IF NOT EXISTS public.user (
     id  SERIAL NOT NULL PRIMARY KEY,
-    firstname    VARCHAR(15) NOT NULL,
-    lastname    VARCHAR(15) NOT NULL,
-    email   VARCHAR(40) NOT NULL,
-    address    VARCHAR(255) NOT NULL,
-    UNIQUE (email)
+    first_name    VARCHAR(24) NOT NULL,
+    last_name    VARCHAR(24) NOT NULL,
+    username   VARCHAR(20) NOT NULL,
+    hashed_passwd VARCHAR(64) NOT NULL,
+    UNIQUE (username)
 );
 
-CREATE TABLE IF NOT EXISTS public.shipping_type (
+CREATE TABLE IF NOT EXISTS public.category (
     id  SERIAL NOT NULL PRIMARY KEY,
-    name    VARCHAR(15) NOT NULL,
-    price    NUMERIC(8, 2) NOT NULL,
-    days INT DEFAULT NULL,
+    name VARCHAR(15) NOT NULL,
+    user_id INT NOT NULL REFERENCES public.user(id)
+);
+
+CREATE TABLE IF NOT EXISTS public.account_type (
+    id  SERIAL NOT NULL PRIMARY KEY,
+    type VARCHAR(35) NOT NULL,
+    UNIQUE (type)
+);
+
+CREATE TABLE IF NOT EXISTS public.account (
+    id  SERIAL NOT NULL PRIMARY KEY,
+    name    VARCHAR(35) NOT NULL,
+    account_type_id INT NOT NULL REFERENCES public.account_type(id),
+    user_id INT NOT NULL REFERENCES public.user(id),
+    active BOOLEAN NOT NULL DEFAULT true,
     UNIQUE (name)
 );
 
-CREATE TABLE IF NOT EXISTS public.product_type (
+CREATE TABLE IF NOT EXISTS public.expense (
     id  SERIAL NOT NULL PRIMARY KEY,
-    category VARCHAR(15) NOT NULL,
-    UNIQUE (category)
+    user_id INT NOT NULL REFERENCES public.user(id),
+    account_id INT NOT NULL REFERENCES public.account(id),
+    category_id INT NOT NULL REFERENCES public.category(id),
+    amount    NUMERIC(12, 2) NOT NULL,
+    transaction_date DATE NOT NULL,
+    description TEXT
 );
 
-CREATE TABLE IF NOT EXISTS public.product (
+CREATE TABLE IF NOT EXISTS public.transfer (
     id  SERIAL NOT NULL PRIMARY KEY,
-    product_type_id INT NOT NULL REFERENCES public.product_type(id),
-    name    VARCHAR(15) NOT NULL,
-    price    NUMERIC(8, 2) NOT NULL,
-    image_url    VARCHAR(40) NOT NULL,
-    UNIQUE (name, image_url)
+    user_id INT NOT NULL REFERENCES public.user(id),
+    from_account_id INT NOT NULL REFERENCES public.account(id),
+    to_account_id INT NOT NULL REFERENCES public.account(id),
+    amount    NUMERIC(12, 2) NOT NULL,
+    transfer_date DATE NOT NULL,
+    description TEXT
 );
-
-CREATE TABLE IF NOT EXISTS public.cart (
-    id  SERIAL NOT NULL PRIMARY KEY,
-    product_id INT NOT NULL REFERENCES public.product(id),
-    amount    SMALLINT NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS public.order (
-    id  SERIAL NOT NULL PRIMARY KEY,
-    customer_id INT NOT NULL REFERENCES public.customer(id),
-    cart_id INT NOT NULL REFERENCES public.cart(id),
-    shipping_type_id INT NOT NULL REFERENCES public.shipping_type(id),
-    amountpaid    NUMERIC(12, 2) NOT NULL,
-    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-ALTER TABLE cart ADD order_id integer NOT NULL REFERENCES public.order(id);
-ALTER TABLE public.order DROP COLUMN cart_id;

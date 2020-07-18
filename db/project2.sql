@@ -1,5 +1,6 @@
 #product_type
-INSERT INTO product_type (category) VALUES ('livestock');
+INSERT INTO account_type (type) VALUES ('checking');
+INSERT INTO account_type (type) VALUES ('savings');
 
 #product
 INSERT INTO product (product_type_id, name, price, image_url) VALUES ('1', 'Ameraucana', '3.35', 'ameraucana.jpg');
