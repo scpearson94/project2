@@ -19,11 +19,12 @@ function getAcctTypes (req, res) {
             console.log("Error in query.")
             res.render('error', params);
         } else {
-            const dispResult = JSON.stringify(result.rows);
-            let params = { displayReq: displayReq, result: dispResult };
+            let rsList = [];
+            (result.rows).forEach(rslt => { rsList.push(rslt['type']); });
+            const params = { displayReq: displayReq, result: rsList };
             // Log this to the console for debugging purposes.
             console.log("Back from DB with result.");
-            console.log(dispResult);
+            console.log(rsList);
             res.render('display.ejs', params)
         }
     });
