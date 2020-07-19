@@ -25,7 +25,7 @@ function getAcctTypes (req, res) {
             // Log this to the console for debugging purposes.
             console.log("Back from DB with result.");
             console.log(rsList);
-            res.render('display.ejs', params)
+            res.render('pages/display', params)
         }
     });
 }

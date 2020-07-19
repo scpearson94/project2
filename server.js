@@ -8,7 +8,13 @@ const app = express();
 const port = normalizePort(process.env.PORT || '3000');
 
 var indexRouter = require('./routes/index');
-var acctTypeRouter = require('./routes/acctType')
+var homeRouter = require('./routes/home');
+var displayRouter = require('./routes/display');
+var acctTypeRouter = require('./routes/acctType');
+var expensesRouter = require('./routes/expenses');
+var expenseLoaderRouter = require('./routes/expense_loader');
+var transfersRouter = require('./routes/transfers');
+var budgetRouter = require('./routes/budget');
 
 app
   .use(express.static(path.join(__dirname, 'public')))
@@ -16,7 +22,38 @@ app
   .set('view engine', 'ejs')
   .set('port', port)
   .use('/', indexRouter)
+  .use('/home', homeRouter)
+  .use('/display', displayRouter)
   .use('/account_types', acctTypeRouter)
+  .use('/expenses', expensesRouter)
+  .use('/expense_loader', expenseLoaderRouter)
+  .use('/transfers', transfersRouter)
+  .use('/budget', budgetRouter)
+  .use('/add_expense', expensesRouter)
+
+  // Handle POST requests to /signup.
+  app.post('/signup', function(request, response) {
+
+  // Retrieve the person from the URI query string.
+  const first_name = request.query.first_name;
+  const last_name = request.query.last_name;
+  const username = request.query.username;
+  const password = request.query.password;
+
+  // If there is a person, and the raw JSON data has such a key, return the
+  // associated data.
+  // If there is no person, or the raw JSON data has no such key, return
+  // an error object.
+  if (validateData(first_name) && validateData(last_name) 
+    && validateData(username) && validateData(password)) {
+    console.log( "Sign up: ", first_name );
+  } else {
+    response.render( "pages/error", { displayReq: "Error", err: "Could not retrieve data"} );
+  }
+
+  // End the response.
+  response.end();
+});
 
 var server = http.createServer(app);
 
@@ -28,6 +65,13 @@ server.listen(app.get('port'));
 server.on('error', onError);
 server.on('listening', onListening);
 
+function validateData(data) {
+  if (data !== undefined /*&& data.hasOwnProperty(person)*/) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 function normalizePort(val) {
   var port = parseInt(val, 10);

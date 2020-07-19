@@ -1,0 +1,40 @@
+#navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: none;
+    position: sticky;
+    top: 0;
+    width: 100%;
+}
+  
+.navitem {
+    float: left;
+}
+
+/* Navbar links */
+li a {
+    display: block;
+    background-color: aqua;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to black on hover */
+li a:hover {
+    background-color: gray;
+    color: black;
+}
+
+/* Change the color of the active or current navigation link */
+.active {
+    background-color: black;
+    color: white;
+}
+
+.error_messages {
+    color: red;
+}

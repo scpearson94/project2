@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" type="text/css" href="/styles/style.css">
+
+    <script src="../js/signup.js"></script>
+</head>
+<body>
+    <h1>Expense Tracking by SCP</h1>
+
+    <form action="/home" id="signupForm" method="post">
+        <label for="first_name">First Name:</label>
+        <input type="text" name="first_name" id="first_name" required>
+        <p id="fn_error" class="error_messages"></p>
+        <section></section>
+        <label for="last_name">Last Name:</label>
+        <input type="text" name="last_name" id="last_name" required>
+        <p id="ln_error" class="error_messages"></p>
+        <section></section>
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" required>
+        <p id="u_error" class="error_messages"></p>
+        <section></section>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+        <p id="p_error" class="error_messages"></p>
+        <section></section>
+        <label for="password_confirm">Confirm Password:</label>
+        <input type="password" name="password_confirm" id="password_confirm" required>
+        <p id="pc_error" class="error_messages"></p>
+        <section></section>
+        <input type="submit" value="Sign up">
+    </form>
+
+    <div id="output"></div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expenses</title>
+    <link rel="stylesheet" type="text/css" href="/styles/style.css">
+    <script src="/js/loadExpenses.js"></script>
+</head>
+<body>
+    <%- include ../partials/navbar.ejs %>
+    <h1>Expenses</h1>
+
+    <form action="/add_expense" method="post">
+        <label for="amount">New Expense Amount: </label>
+        <input type="text" name="amount">
+        <label for="description">New Expense Description: </label>
+        <input type="text" name="description">
+        <input type="submit" value="Add Expense">
+    </form>
+
+    <div id="output">Loading expenses...</div>
+    
+</body>
+</html>
