@@ -9,6 +9,11 @@
 <body>
     <%- include ../partials/navbar.ejs %>
     <h1><%= heading %></h1>
+
+    <% for (var key in categories) { %>
+        <h3><%= key %></h3>
+        <div>$<%= categories[key][0] %> / $<%= categories[key][1] %></div>
+    <% } %>
     
 </body>
 </html>

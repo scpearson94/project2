@@ -6,6 +6,7 @@
     <title>Expenses</title>
     <link rel="stylesheet" type="text/css" href="/styles/style.css">
     <script src="/js/loadExpenses.js"></script>
+    <script src="/js/loadCatDropdown.js"></script>
 </head>
 <body>
     <%- include ../partials/navbar.ejs %>
@@ -14,6 +15,10 @@
     <form action="/add_expense" method="post">
         <label for="amount">New Expense Amount: </label>
         <input type="text" name="amount">
+        <label for="category">Category: </label>
+        <select name="category" id="category">
+            <option>--Select Category--</option>
+        </select>
         <label for="description">New Expense Description: </label>
         <input type="text" name="description">
         <input type="submit" value="Add Expense">

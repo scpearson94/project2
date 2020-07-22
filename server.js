@@ -9,11 +9,14 @@ const port = normalizePort(process.env.PORT || '3000');
 
 var indexRouter = require('./routes/index');
 var homeRouter = require('./routes/home');
+var categoriesRouter = require('./routes/categories');
+var categoryLoaderRouter = require('./routes/category_loader');
 var displayRouter = require('./routes/display');
 var acctTypeRouter = require('./routes/acctType');
 var expensesRouter = require('./routes/expenses');
 var expenseLoaderRouter = require('./routes/expense_loader');
 var transfersRouter = require('./routes/transfers');
+var transferLoaderRouter = require('./routes/transfer_loader');
 var budgetRouter = require('./routes/budget');
 
 app
@@ -23,16 +26,20 @@ app
   .set('port', port)
   .use('/', indexRouter)
   .use('/home', homeRouter)
+  .use('/categories', categoriesRouter)
+  .use('/category_loader', categoryLoaderRouter)
   .use('/display', displayRouter)
   .use('/account_types', acctTypeRouter)
   .use('/expenses', expensesRouter)
   .use('/expense_loader', expenseLoaderRouter)
   .use('/transfers', transfersRouter)
+  .use('/transfer_loader', transferLoaderRouter)
   .use('/budget', budgetRouter)
   .use('/add_expense', expensesRouter)
+  .use('/add_transfer', transfersRouter)
 
-  // Handle POST requests to /signup.
-  app.post('/signup', function(request, response) {
+// Handle POST requests to /signup.
+app.post('/signup', function(request, response) {
 
   // Retrieve the person from the URI query string.
   const first_name = request.query.first_name;

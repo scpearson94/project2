@@ -5,10 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transfers</title>
     <link rel="stylesheet" type="text/css" href="/styles/style.css">
+    <script src="/js/loadTransfers.js"></script>
 </head>
 <body>
     <%- include ../partials/navbar.ejs %>
-    <h1><%= heading %></h1>
+    <h1>Transfers</h1>
+
+    <form action="/add_transfer" method="post">
+        <label for="amount">New Transfer Amount: </label>
+        <input type="text" name="amount">
+        <label for="from_acct">From Account: </label>
+        <select name="from_acct">
+            <option>--Select Account--</option>
+            <% accounts.forEach( (account, i) => { %>
+            <option name='<%= i %>'><%= account %></option>
+            <% }) %>
+        </select>
+        <label for="to_acct">To Account: </label>
+        <select name="to_acct">
+            <option>--Select Account--</option>
+            <% accounts.forEach( (account, i) => { %>
+            <option name='<%= i %>'><%= account %></option>
+            <% }) %>
+        </select>
+        <label for="description">New Transfer Description: </label>
+        <input type="text" name="description">
+        <input type="submit" value="Add Transfer">
+    </form>
+
+    <div id="output">Loading transfers...</div>
     
 </body>
 </html>

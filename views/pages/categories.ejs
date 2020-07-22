@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories</title>
+    <link rel="stylesheet" type="text/css" href="/styles/style.css">
+    <script src="/js/loadCategories.js"></script>
+</head>
+<body>
+    <%- include ../partials/navbar.ejs %>
+    <h1>Categories</h1>
+
+    <form action="/categories" method="post">
+        <label for="name">New Category Name: </label>
+        <input type="text" name="name">
+        <label for="goal">New Category Goal: </label>
+        <input type="text" name="goal">
+        <input type="submit" value="Add Category">
+    </form>
+
+    <div id="output">Loading categories...</div>
+    
+</body>
+</html>

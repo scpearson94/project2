@@ -17,11 +17,11 @@ document.addEventListener('DOMContentLoaded', function(e) {
     const output = document.getElementById('output');
 
 
-    console.log('Attempting to load expenses');
+    console.log('Attempting to load categories');
     // Create a new XMLHttpRequest object and resolve the target URI.
     var request = new XMLHttpRequest();
 
-    const target  = '/expense_loader';
+    const target  = '/category_loader';
     request.open('GET', target, true);
     request.send();
     
@@ -34,10 +34,10 @@ document.addEventListener('DOMContentLoaded', function(e) {
             if (request.status === OKAY) {
                 let rsList = [];
                 (JSON.parse(request.responseText)).forEach(rslt => { 
-                    const amount = rslt['amount'];
-                    const description = rslt['description']; 
-                    div.appendChild(document.createTextNode("$" + amount + " "));
-                    div.appendChild(document.createTextNode(description));
+                    const name = rslt['name'];
+                    const goal = rslt['goal']; 
+                    div.appendChild(document.createTextNode('Name: ' + name + '; '));
+                    div.appendChild(document.createTextNode('Goal: ' + goal));
                     div.appendChild(document.createElement('section'));
                 });
                 console.log(request.responseText);

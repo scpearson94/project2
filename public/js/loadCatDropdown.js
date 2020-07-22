@@ -14,14 +14,13 @@ var ERROR = {
 // Wait for the document to load before binding event handlers further.
 document.addEventListener('DOMContentLoaded', function(e) {
 
-    const output = document.getElementById('output');
+    const category = document.getElementById('category');
 
-
-    console.log('Attempting to load expenses');
+    console.log('Attempting to load categories into dropdown menu');
     // Create a new XMLHttpRequest object and resolve the target URI.
     var request = new XMLHttpRequest();
 
-    const target  = '/expense_loader';
+    const target  = '/category_loader';
     request.open('GET', target, true);
     request.send();
     
@@ -29,23 +28,24 @@ document.addEventListener('DOMContentLoaded', function(e) {
     request.onreadystatechange = function() {
         // Do nothing until the request is finished.
         if (request.readyState === DONE) {
-            var div = document.createElement('div');
+            
             // If the request was successful, set the output to the response.
             if (request.status === OKAY) {
                 let rsList = [];
-                (JSON.parse(request.responseText)).forEach(rslt => { 
-                    const amount = rslt['amount'];
-                    const description = rslt['description']; 
-                    div.appendChild(document.createTextNode("$" + amount + " "));
-                    div.appendChild(document.createTextNode(description));
-                    div.appendChild(document.createElement('section'));
+                (JSON.parse(request.responseText)).forEach( (rslt, i) => { 
+                    var option = document.createElement('option');
+                    const name = rslt['name']; 
+                    console.log(name);
+                    option.appendChild(document.createTextNode(name));
+                    option.setAttribute("value", i + 1);
+                    category.appendChild(option);
                 });
                 console.log(request.responseText);
             } else {
-                div.appendChild(document.createTextNode(JSON.stringify(ERROR)));
+                option.appendChild(document.createTextNode(JSON.stringify(ERROR)));
             }
             // Append the div to the output container.
-            output.replaceChild(div, output.firstChild);
+            
         }
     };
 });

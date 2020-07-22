@@ -10,12 +10,11 @@ var bodyParser = require('body-parser');
 const { response } = require('express');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-/* POST expense page. */
+/* POST categories page. */
 router.post('/', urlencodedParser, function(req, res) {
-  const amount = req.body.amount;
-  const category = req.body.category;
-  const description = req.body.description;
-  const sql = "INSERT INTO expense (user_id, account_id, category_id, amount, transaction_date, description) VALUES (1, 1, " + category + ", " + amount + ", '2020-07-17', '" + description + "')";
+  const name = req.body.name;
+  const goal = req.body.goal;
+  const sql = "INSERT INTO category (name, user_id, goal) VALUES ('" + name + "', 1, " + goal + ")";
 
   pool.query(sql, function(err, result) {
       // If an error occurred...
@@ -24,16 +23,16 @@ router.post('/', urlencodedParser, function(req, res) {
           console.log("Error in query.")
           res.render('pages/error', params);
       } else {
-          const params = { heading: "Expense added" };
+          const params = { heading: "Category added" };
           // Log this to the console for debugging purposes.
-          console.log("Expense successfully added.");
-          res.render('pages/expenses', params);
+          console.log("Category successfully added.");
+          res.render('pages/categories', params);
       }
   });
 });
 
 router.get('/', function(req, res) {
-  res.render('pages/expenses', { heading: "Expenses" });
+    res.render('pages/categories', { heading: "Categories" });
 });
 
 module.exports = router;

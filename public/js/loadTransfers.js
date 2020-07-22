@@ -17,11 +17,11 @@ document.addEventListener('DOMContentLoaded', function(e) {
     const output = document.getElementById('output');
 
 
-    console.log('Attempting to load expenses');
+    console.log('Attempting to load transfers');
     // Create a new XMLHttpRequest object and resolve the target URI.
     var request = new XMLHttpRequest();
 
-    const target  = '/expense_loader';
+    const target  = '/transfer_loader';
     request.open('GET', target, true);
     request.send();
     
@@ -35,9 +35,15 @@ document.addEventListener('DOMContentLoaded', function(e) {
                 let rsList = [];
                 (JSON.parse(request.responseText)).forEach(rslt => { 
                     const amount = rslt['amount'];
-                    const description = rslt['description']; 
-                    div.appendChild(document.createTextNode("$" + amount + " "));
-                    div.appendChild(document.createTextNode(description));
+                    const description = rslt['description'];
+                    const transfer_date = rslt['transfer_date'];
+                    //const from_account = rslt['from_account_id'];
+                    //const to_account = rslt['to_account_id']; 
+                    //div.appendChild(document.createTextNode("From Account: " + from_account + "; "));
+                    //div.appendChild(document.createTextNode("To Account: " + from_account + "; "));
+                    div.appendChild(document.createTextNode("$" + amount + "; "));
+                    div.appendChild(document.createTextNode(description + "; "));
+                    div.appendChild(document.createTextNode("Date: " + transfer_date));
                     div.appendChild(document.createElement('section'));
                 });
                 console.log(request.responseText);

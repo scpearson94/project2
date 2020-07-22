@@ -48,3 +48,6 @@ CREATE TABLE IF NOT EXISTS public.transfer (
     transfer_date DATE NOT NULL,
     description TEXT
 );
+
+ALTER TABLE account ADD start_balance NUMERIC(12, 2) NOT NULL DEFAULT 0.00;
+ALTER TABLE category ADD goal NUMERIC(12, 2) NOT NULL DEFAULT 200.00;
